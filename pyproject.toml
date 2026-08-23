@@ -1,0 +1,22 @@
+[project]
+name = "interlock"
+version = "0.1.0"
+description = "Interlock — runtime assurance for agentic AI (Accenture Innovation Challenge 2026, Team TwoKey)"
+requires-python = ">=3.11"
+dependencies = [
+  "fastapi>=0.115",
+  "uvicorn[standard]>=0.30",
+  "pydantic>=2.7",
+  "httpx>=0.27",
+  "pyyaml>=6",
+  "cryptography>=42",
+  "numpy>=1.26",
+  "python-dotenv>=1.0",
+  "faker>=25",
+]
+[project.optional-dependencies]
+dev = ["pytest>=8", "pytest-asyncio>=0.23"]
+# Only needed to rebuild the submission documents with `make deliverables`.
+docs = ["python-pptx>=1.0", "pypdf>=4"]
+[tool.setuptools]
+packages = ["interlock"]
