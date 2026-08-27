@@ -1,0 +1,15 @@
+use_case: internal-copilot
+description: Internal knowledge copilot for staff. Read-mostly, batch tolerant, low blast radius.
+risk_appetite: high
+latency_budget_ms: 5000
+alpha: 0.15
+tau: 0.55
+thresholds: {auto_max: 0.55, edit_max: 0.70, two_key_max: 0.85, human_max: 0.95}
+max_auto_amount: {EUR: 0, INR: 0}
+irreversible_actions: [delete_record, send_external_email]
+allowed_actions: [answer_question, summarise_file, draft_note, escalate]
+weights: {static_policy: 0.18, evidence_nli: 0.30, trace_auditor: 0.12, semantic_entropy: 0.26, consequence_sim: 0.04, prompt_guard: 0.10}
+edit_rules: {clamp_to_coverage_limit: false, redact_pii_in_payload: true}
+jurisdiction_overrides:
+  EU: {require_human_for: [send_external_email], pii_policy: strict, log_retention_months: 6, basis: EU AI Act Art.12}
+  IN: {require_human_for: [], pii_policy: dpdp, log_retention_months: 12, basis: DPDP Act 2023}

@@ -1,0 +1,15 @@
+use_case: customer-support
+description: Customer-facing support assistant. Real-time, high volume, mostly reversible actions.
+risk_appetite: medium
+latency_budget_ms: 1200
+alpha: 0.10
+tau: 0.40
+thresholds: {auto_max: 0.45, edit_max: 0.60, two_key_max: 0.75, human_max: 0.92}
+max_auto_amount: {EUR: 200, INR: 15000}
+irreversible_actions: [issue_refund, close_account]
+allowed_actions: [send_message, issue_refund, update_contact, escalate, request_documents]
+weights: {static_policy: 0.22, evidence_nli: 0.18, trace_auditor: 0.10, semantic_entropy: 0.22, consequence_sim: 0.16, prompt_guard: 0.12}
+edit_rules: {clamp_to_coverage_limit: true, redact_pii_in_payload: true}
+jurisdiction_overrides:
+  EU: {require_human_for: [], pii_policy: strict, log_retention_months: 6, basis: GDPR + EU AI Act transparency duties}
+  IN: {require_human_for: [], pii_policy: dpdp, log_retention_months: 12, basis: DPDP Act 2023}
