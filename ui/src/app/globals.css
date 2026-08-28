@@ -1,0 +1,185 @@
+@import "tailwindcss";
+
+/* ============================================================================
+   INTERLOCK — Accenture-themed control room.  See DESIGN.md at the repo root.
+
+   Accenture's identity is two colours: #A100FF purple and black, plus the ">"
+   mark. That is genuinely a control-room palette already, so the brand and the
+   product direction agree rather than fight. Purple is used the way Accenture
+   uses it — as a single decisive accent on a black ground — never as a gradient,
+   never as a fill behind content.
+
+   Lane state keeps its own signal colours because colour here is DATA, not
+   branding: an operator must be able to tell BLOCK from AUTO at a glance, and
+   purple cannot encode five states.
+   ========================================================================= */
+
+:root {
+  /* Accenture black, warmed a touch so 1px rules stay visible on projectors */
+  --ground:      #08080A;
+  --panel:       #101013;
+  --panel-2:     #17171B;
+  --rule:        #26262C;
+  --rule-soft:   #1C1C21;
+
+  --ink:         #EDEDF0;
+  --ink-2:       #9296A0;
+  --ink-3:       #61656F;
+
+  /* Accenture purple — the one accent. PMS 7442 C */
+  --brand:       #A100FF;
+  --brand-2:     #C766FF;   /* hover / secondary emphasis only */
+  --brand-dim:   #A100FF22; /* selected-row wash */
+
+  /* Lane signal. Chosen for deuteranopia separation as well as hue:
+     green/blue/amber/orange/red also differ in LIGHTNESS, and every lane also
+     carries a letter glyph and a text label, so colour is never the only cue. */
+  --auto:        #35D0A0;
+  --edit:        #F5B942;
+  --two-key:     #58A6FF;
+  --human:       #FF8351;
+  --block:       #FF5252;
+
+  --pass:        #35D0A0;
+  --warn:        #F5B942;
+  --fail:        #FF5252;
+
+  /* Fallbacks matter: if the next/font variable is missing the whole declaration
+     would be invalid and the page would drop to a serif default. */
+  --font-sans: var(--font-plex, "IBM Plex Sans"), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-jb, "JetBrains Mono"), ui-monospace, "SF Mono", monospace;
+
+  /* Presentation scale. The console is designed dense; recording a demo video
+     needs it a step larger without redrawing every panel. */
+  --ui-scale: 1;
+}
+
+/* Accenture white — for projectors that wash out dark UI */
+[data-theme="light"] {
+  --ground:    #FFFFFF;
+  --panel:     #FBFBFC;
+  --panel-2:   #F4F1F8;
+  --rule:      #E2E2E7;
+  --rule-soft: #EEEEF1;
+  --ink:       #08080A;
+  --ink-2:     #55596180;
+  --ink-2:     #565A63;
+  --ink-3:     #8A8E98;
+  --brand:     #A100FF;
+  --brand-2:   #7A00C2;
+  --brand-dim: #A100FF14;
+  --auto:      #067A55;
+  --edit:      #9A6200;
+  --two-key:   #0B5FCC;
+  --human:     #C4451B;
+  --block:     #C11B1B;
+  --pass:      #067A55;
+  --warn:      #9A6200;
+  --fail:      #C11B1B;
+}
+
+@theme inline {
+  --color-ground: var(--ground);
+  --color-panel: var(--panel);
+  --color-panel2: var(--panel-2);
+  --color-rule: var(--rule);
+  --color-rulesoft: var(--rule-soft);
+  --color-ink: var(--ink);
+  --color-ink2: var(--ink-2);
+  --color-ink3: var(--ink-3);
+  --color-auto: var(--auto);
+  --color-edit: var(--edit);
+  --color-twokey: var(--two-key);
+  --color-human: var(--human);
+  --color-block: var(--block);
+  --color-pass: var(--pass);
+  --color-warn: var(--warn);
+  --color-fail: var(--fail);
+  --color-brand: var(--brand);
+  --font-sans: var(--font-sans);
+  --font-mono: var(--font-mono);
+}
+
+* { box-sizing: border-box; }
+
+html, body {
+  background: var(--ground);
+  color: var(--ink);
+  font-family: var(--font-sans);
+  font-size: 14px;
+  line-height: 1.45;
+  font-variant-numeric: tabular-nums;
+  -webkit-font-smoothing: antialiased;
+  margin: 0;
+}
+
+/* Uniformly enlarges the whole console for screen recording, without touching
+   any layout maths. Toggled from the status bar. */
+body { zoom: var(--ui-scale); }
+
+/* Hierarchy from 1px rules and background steps. Never shadows. */
+.panel { background: var(--panel); border: 1px solid var(--rule); border-radius: 2px; }
+.mono  { font-family: var(--font-mono); font-feature-settings: "tnum" 1; }
+
+.label {
+  font-size: 11px; text-transform: uppercase; letter-spacing: 0.08em;
+  color: var(--ink-3); font-weight: 500;
+}
+
+/* Lane chips are rectangles carrying a glyph + word, so they survive
+   colour-blindness and greyscale printing. */
+.chip {
+  display: inline-flex; align-items: center; gap: 4px;
+  padding: 1px 6px 1px 5px; border-radius: 2px; font-size: 11px; font-weight: 600;
+  letter-spacing: 0.05em; text-transform: uppercase;
+  font-family: var(--font-mono); border: 1px solid currentColor; line-height: 1.5;
+}
+.chip-glyph {
+  font-weight: 700; font-size: 10px; width: 11px; text-align: center;
+  border-right: 1px solid currentColor; padding-right: 3px; margin-right: 1px;
+}
+
+/* Keyboard affordance — teaches the shortcut rather than hiding it */
+.kbd {
+  font-family: var(--font-mono); font-size: 10px; padding: 0 4px;
+  border: 1px solid var(--rule); border-radius: 2px; color: var(--ink-3);
+  background: var(--panel-2); line-height: 1.6;
+}
+
+/* Focus is visible and on-brand. Never removed. */
+:where(button, a, input, textarea, [tabindex]):focus-visible {
+  outline: 2px solid var(--brand);
+  outline-offset: 1px;
+}
+
+/* Motion carries meaning only. */
+@keyframes landing  { from { opacity: 0; transform: translateY(-3px); } to { opacity: 1; transform: none; } }
+@keyframes appended { from { opacity: 0; transform: translateY(-6px); } to { opacity: 1; transform: none; } }
+@keyframes runbar   { 0% { transform: translateX(-100%); } 100% { transform: translateX(300%); } }
+@keyframes flash    { 0%,100% { background: transparent; } 30% { background: var(--brand-dim); } }
+.land     { animation: landing 120ms ease-out both; }
+.appended { animation: appended 80ms ease-out both; }
+.runbar   { animation: runbar 1.1s linear infinite; }
+.flash    { animation: flash 600ms ease-out; }
+
+@media (prefers-reduced-motion: reduce) {
+  .land, .appended, .runbar, .flash { animation: none !important; }
+}
+
+::-webkit-scrollbar { width: 9px; height: 9px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--rule); }
+::-webkit-scrollbar-thumb:hover { background: var(--ink-3); }
+
+::selection { background: var(--brand); color: #fff; }
+
+/* Unlayered rules beat every Tailwind utility, so the element reset lives in a
+   layer. Without this, `padding: 0` on button silently defeats px-3 and the
+   navigation collapses into one run-on string. */
+@layer base {
+  button, input, select, textarea { font-family: inherit; font-size: inherit; color: inherit; }
+  button { cursor: pointer; background: none; border: none; padding: 0; }
+  button:disabled { cursor: not-allowed; opacity: 0.4; }
+  table { border-collapse: collapse; width: 100%; }
+  input, textarea { outline: none; }
+}
