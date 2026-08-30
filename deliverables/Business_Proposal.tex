@@ -1,0 +1,264 @@
+\documentclass[10pt]{article}
+\usepackage{interlock}
+\begin{document}
+
+\cover{Interlock}
+{Detailed Business Proposal. Runtime assurance for agentic AI in insurance operations.}
+{\textbf{Accenture Innovation Challenge 2026} \quad Round 2, Prototype Development \quad ControlPlane.ai\\[3pt]
+\textbf{Team TwoKey} \quad Riddhi Sidana (Team Leader) and Mohammed Talha Ansari\\[3pt]
+Indian Institute of Technology Roorkee \quad Fourth year BS-MS Economics}
+{\textbf{Contents:} problem framing, solution design, target users, business case and impact, phased roadmap, key risks with mitigations.}
+
+\section{The commercial problem}
+
+\subsection{The bottleneck is not capability}
+
+Insurers are not slow to automate claims because the models are not good enough. They are
+slow because nobody can prove the automation is safe. Accenture's own Technology Vision
+2025 research records that seventy-seven percent of executives believe the benefits of AI
+are only possible on a foundation of trust, and states the position plainly: systems will
+only ever be as autonomous as they are trustworthy.
+
+The consequence is a stalled pipeline. Organisations build capable claims agents, then
+deploy them behind mandatory human review for every decision, which removes most of the
+economic case for building them. The agent becomes a suggestion engine, and the cost of
+the human review remains.
+
+\begin{callout}
+\kicker{the commercial insight}
+Governance is currently treated as a brake on autonomy. Interlock reframes it as the
+throttle. An organisation that can prove a bounded error rate on unattended decisions can
+safely increase the proportion of decisions taken without a human, which is where the
+return actually sits.
+\end{callout}
+
+\subsection{Quantified exposure}
+
+\vspace{2pt}
+{\small
+\begin{xltabular}{\textwidth}{@{}L{0.24\textwidth}Y@{}}
+\toprule
+\thead{Exposure} & \thead{Evidence and mechanism} \\
+\midrule
+\textbf{Claims leakage} & Insurers already lose an estimated five to ten percent of claim payouts to leakage, being amounts paid that should not have been paid or should have been lower. An autonomous agent operating at machine speed amplifies this without a corresponding increase in visibility \\
+\textbf{Regulatory liability} & The EU AI Act classifies insurance risk assessment and pricing AI as high risk, with logging obligations under Article 12 and human oversight obligations under Article 14 applying from August 2026. A wrongful automated denial is a regulatory event, not a customer service issue \\
+\textbf{Established precedent} & A Canadian tribunal has held an airline liable for a commitment made by its chatbot. Organisations own what their AI states. An agent that executes converts that liability from an apology into a payout \\
+\textbf{Foregone efficiency} & Every claim routed to a human that did not require one carries a handling cost and a cycle-time penalty. This is the largest and least discussed cost of ungoverned AI \\
+\bottomrule
+\end{xltabular}}
+
+\section{Solution design}
+
+\subsection{What Interlock is}
+
+Interlock is a runtime assurance layer that sits between an AI agent and the systems it
+acts upon. It is deployed as an inline gate, not as a monitoring dashboard. No action
+reaches a payment rail, a policy database or a customer until Interlock has verified it
+and assigned it to an autonomy lane.
+
+The architecture follows the Simplex pattern used to certify avionics autopilots,
+comprising an untrusted controller, a verified safety monitor and a safe fallback. The
+agent must declare a structured intent contract before acting. Six independent
+verification checks then execute in parallel, are fused into a four-axis risk vector, and
+are routed into one of five graduated autonomy lanes ranging from immediate execution to
+fail-closed refusal.
+
+\subsection{What makes it defensible}
+
+\vspace{2pt}
+{\small
+\begin{xltabular}{\textwidth}{@{}L{0.24\textwidth}Y@{}}
+\toprule
+\thead{Differentiator} & \thead{Why competitors do not have it} \\
+\midrule
+\textbf{Governs actions, not text} & The established guardrail market inspects model output for toxicity and accuracy. Interlock inspects the tool call, which is where irreversible consequences occur \\
+\textbf{Heterogeneous verification} & Six checks spanning deterministic rules, a classifier, two language model judges and a statistical uncertainty measure. Correlated detectors fail together, so method diversity is a safety property \\
+\textbf{Cross-vendor Two-Key} & Irreversible actions require concurrence from a model belonging to a different vendor, running on different infrastructure, under a separate credential. A single poisoned model or leaked key cannot authorise an action \\
+\textbf{Derived thresholds} & The business sets the acceptable error rate. The routing threshold is computed from it by split-conformal calibration. No engineer hand-tunes a sensitivity dial \\
+\textbf{The compounding asset} & Every verdict and every human override is a labelled example. The moat is not the architecture, which is publishable. The moat is the verdict ledger, which is proprietary and grows with usage \\
+\bottomrule
+\end{xltabular}}
+
+\subsection{Position relative to the Accenture portfolio}
+
+Accenture's Trusted Agent Huddle certifies and scores agents before they join the
+enterprise, providing interoperability across platforms through the Agent2Agent and Model
+Context Protocol standards. Interlock is complementary rather than competitive. Huddle
+establishes which agents are trusted to participate. Interlock governs every action those
+agents take thereafter. The two together provide admission control and runtime control,
+which is the pairing regulated deployment requires.
+
+\section{Target users}
+
+\vspace{2pt}
+{\small
+\begin{xltabular}{\textwidth}{@{}L{0.215\textwidth}L{0.245\textwidth}Y@{}}
+\toprule
+\thead{User} & \thead{What they need} & \thead{What Interlock gives them} \\
+\midrule
+\textbf{Claims operations lead}\newline {\footnotesize\color{ink3}Economic buyer} & To raise straight-through settlement without raising leakage & A measured straight-through rate against a bounded error rate, with the autonomy dial as a direct control \\
+\textbf{Claims reviewer}\newline {\footnotesize\color{ink3}Daily user} & To clear a queue quickly without missing anything material & Only genuinely uncertain actions arrive, with evidence already prepared and keyboard-speed disposition \\
+\textbf{Chief risk and compliance officer}\newline {\footnotesize\color{ink3}Approver} & Demonstrable Article 12 and Article 14 conformity, and cohort fairness evidence & A tamper-evident ledger, replayable decisions, jurisdiction-specific policy packs and a drift sentinel \\
+\textbf{AI platform engineer}\newline {\footnotesize\color{ink3}Implementer} & To govern agents without rewriting them & An inline gate at the tool-call boundary, model-agnostic and requiring no access to model internals \\
+\textbf{Internal auditor}\newline {\footnotesize\color{ink3}Periodic user} & To answer why a specific decision was taken, months later & Full replay of any action showing the declared plan, every check, the evidence and the resulting ledger entry \\
+\bottomrule
+\end{xltabular}}
+
+\section{Business case}
+
+\begin{callout}
+\kicker{basis of preparation}
+The Round 2 brief states that teams are not expected to have access to proprietary company
+data and should make reasonable assumptions and state them clearly. The following model is
+illustrative and built on stated public benchmarks. Unit economics for inference cost,
+latency and detection accuracy are measured directly from the prototype. Volume and
+handling-cost assumptions are modelled.
+\end{callout}
+
+\subsection{Reference organisation}
+
+\vspace{2pt}
+{\small
+\begin{xltabular}{\textwidth}{@{}YR{0.16\textwidth}L{0.26\textwidth}@{}}
+\toprule
+\thead{Assumption} & \thead{Value} & \thead{Source} \\
+\midrule
+Annual claims settled & 1,560,000 & 30,000 per week, per the brief \\
+Proportion routed through AI agents by year three & 60\% & Modelled adoption \\
+Fully loaded cost of one human claim touch & EUR 18 & Modelled, European operations \\
+Average settled claim value & EUR 1,900 & Modelled, motor and home mix \\
+Baseline leakage rate & 6\% & Midpoint of the published range \\
+Straight-through rate achieved & 54.5\% & \textcolor{ok}{Measured in the prototype} \\
+Inference cost per governed action & \$0.00164 & \textcolor{ok}{Measured in the prototype} \\
+\bottomrule
+\end{xltabular}}
+
+\subsection{Value model, steady state at year three}
+
+\vspace{2pt}
+{\small
+\begin{xltabular}{\textwidth}{@{}L{0.24\textwidth}YR{0.16\textwidth}@{}}
+\toprule
+\thead{Value driver} & \thead{Calculation} & \thead{Annual value} \\
+\midrule
+\textbf{Avoided human handling} & 936,000 agent-routed claims, 54.5 percent settled without a human touch, at EUR 18 per avoided touch & EUR 9.2m \\
+\textbf{Leakage prevented} & Governance improves decision accuracy by 9.1 percentage points. Applied conservatively to one quarter of the leakage exposure on agent-routed volume & EUR 6.1m \\
+\textbf{Regulatory penalty avoidance} & Treated as risk reduction rather than as a modelled cash benefit & {\color{ink3}not modelled} \\
+\textbf{Cycle-time improvement} & Faster settlement supports retention. Not modelled, to keep the case conservative & {\color{ink3}not modelled} \\
+\midrule
+\textbf{Gross annual value} & & \textbf{EUR 15.3m} \\
+\bottomrule
+\end{xltabular}}
+
+\subsection{Cost model}
+
+\vspace{2pt}
+{\small
+\begin{xltabular}{\textwidth}{@{}L{0.24\textwidth}YR{0.12\textwidth}R{0.12\textwidth}@{}}
+\toprule
+\thead{Cost line} & \thead{Basis} & \thead{Year 1} & \thead{Year 3} \\
+\midrule
+Inference & 936,000 actions at measured unit cost, with production model pricing & EUR 0.02m & EUR 0.05m \\
+Platform and infrastructure & Verification service, ledger storage, observability & EUR 0.35m & EUR 0.55m \\
+Engineering and integration & Build, policy authoring, systems integration & EUR 0.90m & EUR 0.60m \\
+Governance operations & Policy stewardship, review of drift and fairness reports & EUR 0.20m & EUR 0.30m \\
+\midrule
+\textbf{Total cost} & & \textbf{EUR 1.47m} & \textbf{EUR 1.50m} \\
+\bottomrule
+\end{xltabular}}
+
+Inference is a rounding error in the model. This is the important structural point. The
+measured cost of governing an action is approximately one sixth of a US cent, which is
+four orders of magnitude below the cost of the human review it replaces. The economics of
+runtime assurance are not constrained by compute.
+
+\subsection{Return}
+
+\kpi{EUR 15.3m}{Gross annual value\\at steady state}
+     {EUR 1.5m}{Annual run cost,\\steady state}
+     {10.2x}{Return on cost,\\year three}
+     {< 6 mo}{Payback from\\pilot go-live}
+
+Sensitivity is dominated by the straight-through rate. If straight-through were to reach
+only thirty percent rather than the measured 54.5 percent, gross annual value falls to
+approximately EUR 9.2m and the return on cost remains above six times. The case does not
+depend on optimistic detection performance.
+
+\section{Impact beyond the financial case}
+
+\vspace{2pt}
+{\small
+\begin{xltabular}{\textwidth}{@{}L{0.18\textwidth}Y@{}}
+\toprule
+\thead{Dimension} & \thead{Impact} \\
+\midrule
+\textbf{Customer} & Legitimate claims settle in minutes rather than days, because governance permits unattended settlement. Wrongful denials fall, since adverse automated decisions are routed to a human under the EU configuration \\
+\textbf{Workforce} & Reviewers receive only genuinely uncertain cases, with evidence prepared. The role shifts from processing to judgment, which is both higher value and more defensible \\
+\textbf{Regulatory} & Conformity becomes demonstrable rather than asserted. Any decision can be replayed, and the audit trail is tamper evident rather than merely access controlled \\
+\textbf{Fairness} & The drift sentinel reports the unattended approval rate by cohort continuously, converting fairness from a periodic audit into an operational metric \\
+\textbf{Sector} & The pattern generalises. Nothing in the architecture is specific to insurance. The same mesh governs a support assistant and an internal copilot in the prototype, driven only by different policy packs \\
+\bottomrule
+\end{xltabular}}
+
+\section{Phased roadmap}
+
+\vspace{2pt}
+{\small
+\begin{xltabular}{\textwidth}{@{}L{0.13\textwidth}L{0.09\textwidth}YL{0.21\textwidth}@{}}
+\toprule
+\thead{Phase} & \thead{Duration} & \thead{Objective and scope} & \thead{Exit criterion} \\
+\midrule
+\textbf{Phase 0}\newline Prototype & Complete & Demonstrate the core mechanism on a simulated insurer. Six-check mesh, five-lane routing, cross-vendor Two-Key, signed ledger, conformal recalibration, operator console & \textcolor{ok}{Achieved. Zero false negatives, 14.3 percent false positive rate} \\
+\textbf{Phase 1}\newline Shadow & 3 months & Deploy inline against one live claims agent in observe-only mode. Interlock records a verdict for every action but blocks nothing. Policy packs authored with the compliance function & Verdict agreement with human reviewers above ninety percent \\
+\textbf{Phase 2}\newline Enforce, low stakes & 3 months & Enable enforcement for reversible and low-value actions. Introduce the EDIT lane. Calibrate tau from accumulated labelled verdicts rather than defaults & Straight-through above forty percent with no confirmed false negative \\
+\textbf{Phase 3}\newline Enforce, full & 6 months & Extend to irreversible actions with Two-Key concurrence. Add the mutual TLS gateway and Open Policy Agent compilation. Add a third judge vendor & Straight-through above fifty-five percent, conformity pack accepted by the risk committee \\
+\textbf{Phase 4}\newline Multi use case & 6 months & Onboard the support assistant and internal copilot using their own policy packs. Introduce champion and challenger shadow evaluation and LoRA distillation of judges & Three governed use cases, unit cost reduced by half \\
+\textbf{Phase 5}\newline Scale & Ongoing & Additional geographies through jurisdiction packs. Integration with Trusted Agent Huddle so certified agents inherit a governance profile on admission & Governance provisioned as a platform capability \\
+\bottomrule
+\end{xltabular}}
+
+\section{Key risks and mitigations}
+
+\vspace{2pt}
+{\small
+\begin{xltabular}{\textwidth}{@{}L{0.205\textwidth}L{0.085\textwidth}Y@{}}
+\toprule
+\thead{Risk} & \thead{Severity} & \thead{Mitigation} \\
+\midrule
+\textbf{Alert fatigue}\newline {\footnotesize\color{ink3}Over-escalation trains staff to bypass the system} & \textcolor{bad}{High} & Measured and managed as a first-class metric. Our own first evaluation produced a 41.2 percent false positive rate, which two-key conservative reconciliation and the EDIT lane reduced to 14.3 percent with no change in false negatives. The Trust Report reports this continuously, and the acceptable error rate is set by the business rather than by engineering \\
+\textbf{Correlated judge failure}\newline {\footnotesize\color{ink3}Both keys share a blind spot} & \textcolor{bad}{High} & Method diversity across deterministic rules, a classifier, language model judges and a statistical measure. Vendor diversity on the second key, on separate infrastructure and a separate credential. A third vendor is scheduled in Phase 3. Irreversible actions additionally fail closed rather than defaulting to execution \\
+\textbf{Latency budget breach} & \textcolor{warn}{Medium} & Checks execute in parallel, and the measured serial-to-parallel saving is reported per action. The deterministic fast path completes within five milliseconds and can gate synchronously while language model judges complete asynchronously for reversible actions. Latency budgets are declared per use case in the policy pack \\
+\textbf{Policy drift} & \textcolor{warn}{Medium} & Policy is configuration, not code, and every change is written to the ledger with its author. Jurisdiction packs isolate regulatory logic so a legal change is a policy edit rather than a release \\
+\textbf{Calibration on thin data} & \textcolor{warn}{Medium} & Recalibration refuses to run below a minimum labelled sample and never admits a threshold above the lowest-scoring known-incorrect decision. Phase 1 exists specifically to accumulate labels before enforcement begins \\
+\textbf{Integration resistance} & \textcolor{warn}{Medium} & Interlock operates at the tool-call boundary and requires no access to model internals or agent rewriting. Phase 1 is observe-only, so the first deployment carries no operational risk and produces the evidence needed to justify enforcement \\
+\textbf{Adversarial adaptation} & \textcolor{warn}{Medium} & Thresholds move with recalibration rather than remaining static. The injection guard is a dedicated classifier rather than a prompt instruction. Fail-closed handling of irreversible actions means a successful evasion still faces a second independent key \\
+\textbf{Vendor dependency} & {\color{ink3}Low} & The check interface is model-agnostic and roles are configuration. An unavailable judge returns a fail-safe risk score rather than a pass, so degradation increases escalation rather than permitting unverified execution \\
+\bottomrule
+\end{xltabular}}
+
+\section{Why this team}
+
+Team TwoKey delivered a functioning system rather than a demonstration harness. The
+prototype runs genuine language models from two independent vendors, executes real
+parallel verification, writes a genuine tamper-evident audit trail and reports measured
+detection performance against seeded ground truth. Where our Round 1 concept overstated a
+figure, specifically a twelve millisecond mesh latency that holds only for the
+deterministic checks, we have corrected it publicly in the README and explained the
+engineering response rather than restating the original claim.
+
+The judgement we would bring to a client engagement is visible in the artefact. We
+measured a 41.2 percent false positive rate on our first evaluation, recognised it as the
+alert fatigue failure mode the brief warns about, diagnosed the cause as an overly strict
+two-key amount tolerance, and reduced it to 14.3 percent without losing a single true
+detection. That sequence, measure, diagnose, correct, report, is the working method the
+proposal depends on.
+
+\vspace{10pt}
+{\color{rule}\rule{\textwidth}{0.4pt}}\par\vspace{6pt}
+{\footnotesize\color{ink3}
+Financial figures in section 4 are illustrative and modelled on the stated assumptions.
+Detection, latency and unit cost figures are measured from the prototype evaluation
+harness and are reproducible with \code{make eval}. All data used in the prototype is
+synthetic.}
+
+\end{document}

@@ -1,0 +1,149 @@
+% ─────────────────────────────────────────────────────────────────────────────
+% Interlock deliverable style. Accenture identity: #A100FF on white.
+% Compile with: tectonic -X compile <file>.tex
+% ─────────────────────────────────────────────────────────────────────────────
+\ProvidesPackage{interlock}
+
+\usepackage[a4paper,top=22mm,bottom=20mm,left=18mm,right=18mm,footskip=11mm]{geometry}
+\usepackage{fontspec}
+\usepackage{xcolor}
+\usepackage{titlesec}
+\usepackage{tabularx}
+\usepackage{xltabular}
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{enumitem}
+\usepackage{fancyhdr}
+\usepackage{tcolorbox}
+\usepackage{graphicx}
+\usepackage{parskip}
+\usepackage{ragged2e}
+\usepackage[hidelinks]{hyperref}
+\usepackage{fvextra}
+\usepackage{needspace}
+
+\tcbuselibrary{skins,breakable}
+
+% Tables must be able to break across pages. A tabularx that does not fit is
+% pushed whole to the next page, which is what leaves large blocks of dead
+% whitespace at the foot of a page. xltabular gives the same column model with
+% page breaking, and \raggedbottom stops LaTeX stretching the remainder.
+\raggedbottom
+\setlength{\LTpre}{4pt}
+\setlength{\LTpost}{6pt}
+\clubpenalty=250
+\widowpenalty=250
+
+% ── colours ──────────────────────────────────────────────────────────────────
+\definecolor{acnpurple}{HTML}{A100FF}
+\definecolor{acndeep}{HTML}{7A00C2}
+\definecolor{ink}{HTML}{16171A}
+\definecolor{ink2}{HTML}{55575E}
+\definecolor{ink3}{HTML}{8A8C93}
+\definecolor{rule}{HTML}{E0E0E5}
+\definecolor{wash}{HTML}{FAF6FF}
+\definecolor{shade}{HTML}{F7F7F9}
+\definecolor{ok}{HTML}{067A55}
+\definecolor{warn}{HTML}{9A6200}
+\definecolor{bad}{HTML}{C11B1B}
+
+% ── type ─────────────────────────────────────────────────────────────────────
+\setmainfont{IBMPlexSans}[
+  Path = fonts/, Extension = .ttf,
+  UprightFont = *-Regular, ItalicFont = *-Italic,
+  BoldFont = *-SemiBold, BoldItalicFont = *-Italic ]
+\setmonofont{JetBrainsMono}[
+  Path = fonts/, Extension = .ttf,
+  UprightFont = *-Regular, BoldFont = *-Bold, Scale = 0.86 ]
+\newfontfamily\medium{IBMPlexSans}[Path=fonts/, Extension=.ttf, UprightFont=*-Medium]
+
+\color{ink}
+\renewcommand{\baselinestretch}{1.16}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{5pt}
+
+% ── headings ─────────────────────────────────────────────────────────────────
+\titleformat{\section}
+  {\Large\bfseries\color{ink}}{\thesection}{0.6em}{}
+  [{\vspace{2pt}\color{acnpurple}\titlerule[1.2pt]}]
+\titlespacing*{\section}{0pt}{20pt}{9pt}
+
+\titleformat{\subsection}[hang]
+  {\large\bfseries\color{ink}}{\color{acnpurple}\thesubsection}{0.6em}{}
+\titlespacing*{\subsection}{0pt}{15pt}{5pt}
+
+\titleformat{\subsubsection}[runin]
+  {\medium\color{ink2}}{}{0pt}{}[\ \ ]
+\titlespacing*{\subsubsection}{0pt}{10pt}{4pt}
+
+% ── header and footer ────────────────────────────────────────────────────────
+\pagestyle{fancy}
+\fancyhf{}
+\renewcommand{\headrulewidth}{0pt}
+\renewcommand{\footrulewidth}{0.4pt}
+\renewcommand{\footrule}{\hbox to\headwidth{\color{rule}\leaders\hrule height \footrulewidth\hfill}}
+\fancyfoot[L]{\footnotesize\color{ink3}\textbf{\textcolor{acnpurple}{>}} Interlock \textperiodcentered\ Team TwoKey}
+\fancyfoot[R]{\footnotesize\color{ink3}\thepage}
+
+% ── tables ───────────────────────────────────────────────────────────────────
+\renewcommand{\arraystretch}{1.32}
+\setlength{\tabcolsep}{6pt}
+\newcolumntype{L}[1]{>{\RaggedRight\arraybackslash}p{#1}}
+\newcolumntype{R}[1]{>{\RaggedLeft\arraybackslash}p{#1}}
+\newcolumntype{Y}{>{\RaggedRight\arraybackslash}X}
+
+\newcommand{\thead}[1]{\footnotesize\medium\color{ink2}\MakeUppercase{#1}}
+
+% ── components ───────────────────────────────────────────────────────────────
+\newtcolorbox{callout}[1][]{
+  breakable, enhanced, sharp corners,
+  colback=wash, colframe=wash, boxrule=0pt,
+  borderline west={1.6pt}{0pt}{acnpurple},
+  left=10pt, right=10pt, top=8pt, bottom=8pt,
+  before skip=9pt, after skip=9pt, #1 }
+
+\newcommand{\kicker}[1]{{\footnotesize\medium\color{acndeep}\MakeUppercase{#1}}\par\vspace{3pt}}
+
+% Four-across metric strip
+\newcommand{\kpi}[8]{%
+  \par\vspace{4pt}\noindent
+  \begin{minipage}[t]{0.235\textwidth}\raggedright
+    {\color{acnpurple}\rule{\linewidth}{1.6pt}}\par\vspace{5pt}
+    {\fontsize{20}{22}\selectfont\ttfamily\bfseries #1}\par\vspace{3pt}
+    {\footnotesize\color{ink2} #2}
+  \end{minipage}\hfill
+  \begin{minipage}[t]{0.235\textwidth}\raggedright
+    {\color{acnpurple}\rule{\linewidth}{1.6pt}}\par\vspace{5pt}
+    {\fontsize{20}{22}\selectfont\ttfamily\bfseries #3}\par\vspace{3pt}
+    {\footnotesize\color{ink2} #4}
+  \end{minipage}\hfill
+  \begin{minipage}[t]{0.235\textwidth}\raggedright
+    {\color{acnpurple}\rule{\linewidth}{1.6pt}}\par\vspace{5pt}
+    {\fontsize{20}{22}\selectfont\ttfamily\bfseries #5}\par\vspace{3pt}
+    {\footnotesize\color{ink2} #6}
+  \end{minipage}\hfill
+  \begin{minipage}[t]{0.235\textwidth}\raggedright
+    {\color{acnpurple}\rule{\linewidth}{1.6pt}}\par\vspace{5pt}
+    {\fontsize{20}{22}\selectfont\ttfamily\bfseries #7}\par\vspace{3pt}
+    {\footnotesize\color{ink2} #8}
+  \end{minipage}
+  \par\vspace{10pt}}
+
+% Cover block
+\newcommand{\cover}[4]{%
+  \thispagestyle{empty}
+  {\color{acnpurple}\rule{\textwidth}{3pt}}\par\vspace{16pt}
+  {\fontsize{34}{38}\selectfont\bfseries\textcolor{acnpurple}{>}\hspace{6pt}#1}\par\vspace{8pt}
+  {\fontsize{13}{18}\selectfont\color{ink2} #2}\par\vspace{20pt}
+  {\color{rule}\rule{\textwidth}{0.4pt}}\par\vspace{9pt}
+  {\small #3}\par\vspace{16pt}
+  {\color{rule}\rule{\textwidth}{0.4pt}}\par\vspace{9pt}
+  {\small #4}\par\vspace{16pt}}
+
+\newcommand{\code}[1]{{\ttfamily\small #1}}
+\newcommand{\lane}[2]{{\ttfamily\bfseries\small\color{#1}#2}}
+
+\setlist[itemize]{leftmargin=13pt, itemsep=2pt, topsep=3pt, parsep=0pt, label=\textcolor{acnpurple}{\footnotesize\raisebox{1.5pt}{\rule{3pt}{3pt}}}}
+\setlist[enumerate]{leftmargin=16pt, itemsep=2pt, topsep=3pt, parsep=0pt}
+
+\endinput
