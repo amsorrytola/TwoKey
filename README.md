@@ -214,9 +214,9 @@ prototype, driven only by different policy packs.
 
 ## Maintainers
 
-- Riddhi Sidana, Team Leader. Indian Institute of Technology Roorkee, fourth year BS-MS
+- Riddhi Sidana, Team Leader. Indian Institute of Technology Roorkee, 4th year BS-MS
   Economics.
-- Mohammed Talha Ansari. Indian Institute of Technology Roorkee, fourth year BS-MS
+- Mohammed Talha Ansari. Indian Institute of Technology Roorkee, 4th year BS-MS
   Economics.
 
 All data in this prototype is synthetic. Reported figures are measured from the
