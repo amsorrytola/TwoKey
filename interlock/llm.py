@@ -92,6 +92,15 @@ class _KeyPool:
             await asyncio.sleep(min(max(wait, 0.25), 2.0))
         return 0
 
+    async def force_exhausted(self, i: int, retry_after_s: float | None) -> None:
+        """A 429 got through despite our tracked budget looking fine — that means the
+        real constraint isn't the per-minute figure we track (e.g. Groq's separate,
+        unheadered tokens-per-day cap). Zero this key out so acquire() actually rotates
+        to another key instead of blindly retrying the same exhausted one."""
+        async with self.lock:
+            self.remaining[i] = 0.0
+            self.reset_at[i] = time.monotonic() + (retry_after_s or 60.0)
+
     async def observe(self, i: int, headers) -> None:
         async with self.lock:
             try:
@@ -217,7 +226,12 @@ async def chat(
             await POOL.observe(ki, r.headers)
             if r.status_code == 429:
                 ra = r.headers.get("retry-after")
-                await asyncio.sleep(min(float(ra) if ra else 1.5 * (attempt + 1), 8.0))
+                ra_s = float(ra) if ra else None
+                # The per-minute header POOL tracks can read as fully available while a
+                # separate daily cap is what's actually rejecting us — trust the 429 itself
+                # over the header so we rotate to another key instead of retrying this one.
+                await POOL.force_exhausted(ki, ra_s)
+                await asyncio.sleep(min(ra_s if ra_s else 1.5 * (attempt + 1), 8.0))
                 ki = await POOL.acquire(role, est)
                 key = KEYS[ki]
                 continue
