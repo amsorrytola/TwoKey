@@ -19,6 +19,7 @@ Indian Institute of Technology Roorkee \quad Fourth year BS-MS Economics}
 3.\ \ Architecture & 8.\ \ Evaluation and results \\
 4.\ \ Recommended tooling & 9.\ \ Troubleshooting and FAQ \\
 5.\ \ Installation & 10.\ Maintainers \\
+6.\ \ Deployed Frontend (https://twokey-hazel.vercel.app/) & \\
 \end{xltabular}}
 
 \section{Introduction}
@@ -297,6 +298,25 @@ Other targets:
 \bottomrule
 \end{xltabular}}
 
+\section{Deployed Frontend}
+ 
+A hosted build of the operator console is available for review without a local
+installation.
+ 
+\vspace{2pt}
+{\small
+\begin{xltabular}{\textwidth}{@{}L{0.22\textwidth}Y@{}}
+\toprule
+\thead{Deployment} & \thead{URL} \\
+\midrule
+Operator console & \url{https://twokey-hazel.vercel.app/} \\
+\bottomrule
+\end{xltabular}}
+ 
+The deployed build mirrors the four-screen console described in Section~7 and is
+intended for evaluation; the API base still needs to point at a running verification
+service for live data, per \code{ui/.env.local}.
+
 \section{Configuration}
 
 All governance lives in \code{policies/*.yaml}. No threshold is held in code. Three packs
@@ -454,8 +474,8 @@ and an internal copilot in the prototype, driven only by different policy packs.
 \toprule
 \thead{Name} & \thead{Role} & \thead{Affiliation} \\
 \midrule
-Riddhi Sidana & Team Leader & Indian Institute of Technology Roorkee, fourth year BS-MS Economics \\
-Mohammed Talha Ansari & Member & Indian Institute of Technology Roorkee, fourth year BS-MS Economics \\
+Riddhi Sidana & Team Leader & Indian Institute of Technology Roorkee, 4th year BS-MS Economics \\
+Mohammed Talha Ansari & Member & Indian Institute of Technology Roorkee, 4th year BS-MS Economics \\
 \bottomrule
 \end{xltabular}}
 
