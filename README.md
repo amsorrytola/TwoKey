@@ -3,7 +3,7 @@
 Runtime assurance for agentic AI. An action firewall that verifies every tool call
 before it reaches a core system.
 
-Built for the [Accenture Innovation Challenge 2026](https://unstop.com/), Round 2,
+Built for the [Accenture Innovation Challenge 2026](https://unstop.com/),
 Problem Track 1 (ControlPlane.ai), by Team TwoKey.
 
 Every mainstream AI safety tool inspects the text a model produces. The financial and
@@ -29,6 +29,7 @@ person, or is refused outright.
 - [Configuration](#configuration)
 - [Key features](#key-features)
 - [Results](#results)
+- [Deployed Frontend](#vercel.app)
 - [Troubleshooting and FAQ](#troubleshooting-and-faq)
 - [Maintainers](#maintainers)
 
@@ -182,6 +183,10 @@ Our Round 1 concept quoted a mesh latency of twelve milliseconds. That holds for
 deterministic checks and is not accurate once model judges are included. The measured p50
 is 6.5 seconds. Checks run in parallel and the console reports the measured
 serial-to-parallel saving per action.
+
+
+## Deployed Frontend
+https://twokey-hazel.vercel.app/
 
 
 ## Troubleshooting and FAQ
