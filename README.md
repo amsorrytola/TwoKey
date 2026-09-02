@@ -3,7 +3,7 @@
 Runtime assurance for agentic AI. An action firewall that verifies every tool call
 before it reaches a core system.
 
-Built for the [Accenture Innovation Challenge 2026](https://unstop.com/),
+Built for the [Accenture Innovation Challenge 2026](https://unstop.com/competitions/crp-accenture-innovation-challenge-2026-accenture-1714566),
 Problem Track 1 (ControlPlane.ai), by Team TwoKey.
 
 Every mainstream AI safety tool inspects the text a model produces. The financial and
@@ -29,7 +29,7 @@ person, or is refused outright.
 - [Configuration](#configuration)
 - [Key features](#key-features)
 - [Results](#results)
-- [Deployed Frontend](#vercel.app)
+- [Deployed Frontend](https://twokey-hazel.vercel.app/)
 - [Troubleshooting and FAQ](#troubleshooting-and-faq)
 - [Maintainers](#maintainers)
 
