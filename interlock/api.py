@@ -23,6 +23,7 @@ from .sim.world import connect, seed
 ROOT = Path(__file__).resolve().parents[1]
 STORE: dict[str, dict] = {}          # action_id -> full verdict (in-memory, demo scope)
 ORDER: list[str] = []
+_BACKGROUND_TASKS: set[asyncio.Task] = set()  # hold strong refs so fire-and-forget tasks aren't GC'd mid-flight
 
 
 class Hub:
@@ -227,7 +228,9 @@ async def post_batch(body: BatchBody):
         await HUB.send({"type": "batch_done", "n": len(ids)})
         await HUB.send({"type": "state", "state": _state()})
 
-    asyncio.create_task(runner())
+    task = asyncio.create_task(runner())
+    _BACKGROUND_TASKS.add(task)
+    task.add_done_callback(_BACKGROUND_TASKS.discard)
     return {"started": len(ids), "claim_ids": ids, "surge": body.surge,
             "concurrency": body.concurrency * (3 if body.surge else 1)}
 
@@ -321,7 +324,9 @@ async def run_report(use_case: str = "claims-settlement"):
         await HUB.send({"type": "eval_started"})
         r = await harness.run(use_case, emit=_emit)
         await HUB.send({"type": "eval_done", "overall": r["overall"]})
-    asyncio.create_task(go())
+    task = asyncio.create_task(go())
+    _BACKGROUND_TASKS.add(task)
+    task.add_done_callback(_BACKGROUND_TASKS.discard)
     return {"started": True}
 
 
